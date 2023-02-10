@@ -20,6 +20,9 @@ namespace Module._8.Files
                     newDirectory.Create();
 
                 Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+
+                newDirectory.Delete();
+                Console.WriteLine("Директория удалена");
             }
             catch (Exception e)
             {
