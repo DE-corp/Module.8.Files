@@ -5,14 +5,21 @@ namespace Module._8.Files
 {
     class Program
     {
-        static void DirCounter(string dir, out int count)
+        static void DirCounter(string dir)
         {
-            count = 0;
             try
             {
-                var dirs = Directory.GetDirectories(dir);
-                var files = Directory.GetFiles(dir);
-                count = dirs.Length + files.Length;
+                var dirInfo = new DirectoryInfo(dir);
+                if (dirInfo.Exists)
+                {
+                    Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+                }
+
+                var newDirectory = new DirectoryInfo(dir + "Новая директория");
+                if (!newDirectory.Exists)
+                    newDirectory.Create();
+
+                Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
             }
             catch (Exception e)
             {
@@ -22,12 +29,8 @@ namespace Module._8.Files
 
         static void Main(string[] args)
         {
-            string dir = @"C:\9787";
-
-            DirCounter(dir, out int count);
-
-            Console.Write($"Количество файлов и папок: {count}");
-
+            string dir = @"C:\";
+            DirCounter(dir);
         }
     }
 }
