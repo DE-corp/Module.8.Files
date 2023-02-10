@@ -1,48 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 
 namespace Module._8.Files
 {
-    class Disk
-    {
-        public string Name { get; set; }
-        public long Volume { get; set; }
-        public long FreeSpace { get; set; }
-
-        public Dictionary<string, Folder> Folders = new Dictionary<string, Folder>();
-
-        public Disk(string Name, long Volume, long FreeSpace)
-        {
-            this.Name = Name;
-            this.Volume = Volume;
-            this.FreeSpace = FreeSpace;
-        }
-
-        public void CreateFolder(string FolderName)
-        {
-            Folders.Add(FolderName, new Folder());
-        }
-
-    }
-
-    public class Folder
-    {
-        public List<string> Files { get; set; } = new List<string>();
-        public string Name { get; set; }
-
-    }
-
     class Program
     {
+        static void DirCounter(string dir, out int count)
+        {
+            count = 0;
+            try
+            {
+                var dirs = Directory.GetDirectories(dir);
+                var files = Directory.GetFiles(dir);
+                count = dirs.Length + files.Length;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
         static void Main(string[] args)
         {
-            var disk = new Disk("C", 1024, 512);
-            disk.CreateFolder("Новая папка");
-            disk.CreateFolder("Новая папка1");
-            disk.CreateFolder("Новая папка2");
-            disk.CreateFolder("Новая папка3");
+            string dir = @"C:\9787";
 
-            Console.WriteLine(disk.Folders.Count);
+            DirCounter(dir, out int count);
+
+            Console.Write($"Количество файлов и папок: {count}");
 
         }
     }
