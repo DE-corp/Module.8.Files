@@ -1,39 +1,20 @@
-﻿using System;
-using System.IO;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
+
 
 namespace Module._8.Files
 {
     class Program
     {
-        static void DirCounter(string dir)
+        static void ToTrash(string inputdir)
         {
-            try
-            {
-                var dirInfo = new DirectoryInfo(dir);
-                if (dirInfo.Exists)
-                {
-                    Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
-                }
-
-                var newDirectory = new DirectoryInfo(dir + "Новая директория");
-                if (!newDirectory.Exists)
-                    newDirectory.Create();
-
-                Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
-
-                newDirectory.Delete();
-                Console.WriteLine("Директория удалена");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            FileSystem.DeleteDirectory(inputdir, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
         }
-
+    
         static void Main(string[] args)
         {
-            string dir = @"C:\";
-            DirCounter(dir);
+            string indir = @"C:\Users\Dell\Desktop\Тестовая папка";
+            ToTrash(indir);
         }
     }
 }
