@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using System.IO;
 using System;
 
 
@@ -6,15 +6,14 @@ namespace Module._8.Files
 {
     class Program
     {
-        static void ToTrash(string inputdir)
-        {
-            FileSystem.DeleteDirectory(inputdir, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
-        }
-    
+        
         static void Main(string[] args)
         {
-            string indir = @"C:\Users\Dell\Desktop\Тестовая папка";
-            ToTrash(indir);
+            string FilePath = @"C:\Users\Dell\Desktop\C#\Apps\Module.8.Files\Module.8.Files\Program.cs";
+            var sw = File.OpenText(FilePath);
+            var text = sw.ReadToEnd();
+
+            Console.WriteLine(text);
         }
     }
 }
