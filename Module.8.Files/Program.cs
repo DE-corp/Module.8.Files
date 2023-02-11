@@ -10,10 +10,16 @@ namespace Module._8.Files
         static void Main(string[] args)
         {
             string FilePath = @"C:\Users\Dell\Desktop\C#\Apps\Module.8.Files\Module.8.Files\Program.cs";
-            var sw = File.OpenText(FilePath);
-            var text = sw.ReadToEnd();
+            var fileInfo = new FileInfo(FilePath);
 
-            Console.WriteLine(text);
+            using (StreamWriter sw = fileInfo.AppendText())
+            {
+                sw.WriteLine($"Время последнего запуска: {DateTime.Now}");
+            }
+
+            using StreamReader sr = fileInfo.OpenText();
+            Console.WriteLine(sr.ReadToEnd());
         }
     }
 }
+
