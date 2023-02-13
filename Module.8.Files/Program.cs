@@ -6,19 +6,17 @@ namespace Module._8.Files
 {
     class Program
     {
-        
+
         static void Main(string[] args)
         {
-            string FilePath = @"C:\Users\Dell\Desktop\C#\Apps\Module.8.Files\Module.8.Files\Program.cs";
-            var fileInfo = new FileInfo(FilePath);
-
-            using (StreamWriter sw = fileInfo.AppendText())
+            string FilePath = "BinaryFile.bin";
+            if (File.Exists(FilePath))
             {
-                sw.WriteLine($"Время последнего запуска: {DateTime.Now}");
+                using (BinaryReader br = new BinaryReader(new FileStream(FilePath, FileMode.Open)))
+                {
+                    Console.WriteLine(br.ReadString());
+                }
             }
-
-            using StreamReader sr = fileInfo.OpenText();
-            Console.WriteLine(sr.ReadToEnd());
         }
     }
 }
